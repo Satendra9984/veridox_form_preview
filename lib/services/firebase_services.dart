@@ -23,7 +23,7 @@ class FirebaseServices {
             {
               "label": "untitled",
               "widget": "text",
-              // "length": "300",
+              "is_heading": true,
               "id": 0,
             },
             {
@@ -56,6 +56,6 @@ class FirebaseServices {
         }
       ]
     };
-    _firebaseRefer.ref('form').set(formData);
+    _firebaseRefer.ref('forms').set(formData);
   }
 }

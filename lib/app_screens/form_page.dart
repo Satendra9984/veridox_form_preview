@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class FormPage extends StatefulWidget {
-  final Map<String, dynamic> singlePageData;
-  const FormPage({
+  var singlePageData;
+  FormPage({
     Key? key,
     required this.singlePageData,
   }) : super(key: key);
@@ -15,7 +13,7 @@ class FormPage extends StatefulWidget {
 }
 
 class _FormPageState extends State<FormPage> {
-  late List<Map<String, dynamic>> _pageData;
+  late var _pageData;
 
   @override
   void initState() {

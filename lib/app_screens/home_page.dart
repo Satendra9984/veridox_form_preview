@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Widget> _getFormPages(Map<String, dynamic> form) {
     List<Widget> screen = [];
 
-    var pageData = form['forms']['pages'];
+    List<dynamic> pageData = form['forms']['pages'];
     _totalPages = pageData.length;
     _currentIndex = 0;
     debugPrint(
