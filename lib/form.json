@@ -1,0 +1,42 @@
+{
+  "name": "new form",
+  "pages": [
+  {
+    "name": "new page",
+    "fields": [
+      {
+        "label": "untitled",
+        "widget" : "text",
+        "length" : "300",
+        "id": 0
+      },
+      {
+        "label": "label1",
+        "widget": "widget",
+        "id": 1
+      },
+      {
+        "label": "label2",
+        "widget": "widget",
+        "id": 2
+      },
+      {
+        "label": "label3",
+        "widget": "widget",
+        "id": 3
+      }
+    ],
+    "id": 0
+  },
+  {
+    "name": "new page",
+    "fields": [
+      {
+        "label": "label1",
+        "widget": "widget",
+        "id": 0
+      }
+    ]
+   }
+  ]
+}
