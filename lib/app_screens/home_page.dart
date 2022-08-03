@@ -54,23 +54,19 @@ class _MyHomePageState extends State<MyHomePage> {
     return Colors.grey;
   }
 
-  List<Widget> _getFormPages(var form) {
+  List<Widget> _getFormPages(Map<String, dynamic> form) {
     List<Widget> screen = [];
-    final formData = jsonDecode(jsonEncode(form)) as Map<String, dynamic>;
-    // debugPrint('data received type --> ${formData.runtimeType}');
-    // debugPrint('data  --> $formData');
 
-    final List<dynamic> pageData =
-        formData['forms']['pages'] as List<Map<String, dynamic>>;
+    var pageData = form['forms']['pages'];
     _totalPages = pageData.length;
     _currentIndex = 0;
     debugPrint(
-        'data in _getFormPages length --> ${pageData.length.toString()}');
+      'data in _getFormPages length --> ${pageData.length.toString()}',
+    );
     for (int i = 0; i < pageData.length; i++) {
       screen.add(
-        FormPage(singlePageData: pageData[i] as Map<String, dynamic>),
+        FormPage(singlePageData: pageData[i]),
       );
-      // print('index--> $i');
     }
     return screen;
   }
@@ -87,26 +83,28 @@ class _MyHomePageState extends State<MyHomePage> {
           var snapshot = form.data?.snapshot.value;
 
           if (kDebugMode) {
-            print('data type --> ${snapshot.runtimeType}');
+            // print('data type --> ${snapshot.runtimeType}');
           }
 
-          debugPrint('fine 61');
+          // debugPrint('fine 61');
           if (form.connectionState == ConnectionState.waiting) {
-            debugPrint('fine 63');
+            // debugPrint('fine 63');
             return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (form.hasData && snapshot != null) {
-            debugPrint('fine 67');
+            // debugPrint('fine 67');
             final data =
                 Map<String, dynamic>.from(snapshot as Map<dynamic, dynamic>);
+
+            // debugPrint(data.toString());
+            // debugPrint('data type for page --> ${data.runtimeType}');
+
             return PageView(
               scrollDirection: Axis.horizontal,
               controller: _pageController,
               children: _getFormPages(data),
-              onPageChanged: (currentPage) {
-                // print('_page ${_pageController.page.toString()}');
-              },
+              onPageChanged: (currentPage) {},
             );
           } else if (snapshot == null) {
             debugPrint('fine 75');

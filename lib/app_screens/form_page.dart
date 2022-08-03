@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -19,7 +20,9 @@ class _FormPageState extends State<FormPage> {
   @override
   void initState() {
     super.initState();
-    print('list in form page --> ${widget.singlePageData['id'].toString()}');
+    if (kDebugMode) {
+      print('list in form page --> ${widget.singlePageData['id'].toString()}');
+    }
 
     _initializePageData();
   }
