@@ -23,12 +23,13 @@ class FirebaseServices {
             {
               "label": "untitled",
               "widget": "text",
-              "is_heading": true,
-              "id": 0,
+              "is_heading": false,
+              "length": "300",
+              "id": 0
             },
             {
               "label": "label1",
-              "widget": "",
+              "widget": "widget",
               "id": 1,
             },
             {
@@ -42,7 +43,7 @@ class FirebaseServices {
               "id": 3,
             }
           ],
-          // "id": 0
+          "id": 0
         },
         {
           "name": "new page",
