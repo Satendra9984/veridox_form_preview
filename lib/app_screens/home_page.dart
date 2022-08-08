@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -57,9 +56,13 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Widget> _getFormPages(Map<String, dynamic> form) {
     List<Widget> screen = [];
 
-    List<dynamic> pageData = form['forms']['pages'];
+    List<dynamic>? pageData = form['forms']['pages'];
+    if (pageData == null) {
+      return screen;
+    }
     _totalPages = pageData.length;
     _currentIndex = 0;
+    // _pageController.jumpToPage(0);
     debugPrint(
       'data in _getFormPages length --> ${pageData.length.toString()}',
     );
@@ -68,6 +71,10 @@ class _MyHomePageState extends State<MyHomePage> {
         FormPage(singlePageData: pageData[i]),
       );
     }
+    if (kDebugMode) {
+      print('line 71 --> home page');
+    }
+
     return screen;
   }
 
@@ -97,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
             final data =
                 Map<String, dynamic>.from(snapshot as Map<dynamic, dynamic>);
 
-            // debugPrint(data.toString());
+            debugPrint(data.toString());
             // debugPrint('data type for page --> ${data.runtimeType}');
 
             return PageView(

@@ -92,7 +92,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                     '${_date.day}/${_date.month}/${_date.year}',
                     style: const TextStyle(
                       fontSize: 16,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),

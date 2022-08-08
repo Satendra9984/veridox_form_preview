@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:veridox_form_preview/form_widgets/date_time.dart';
 import 'package:veridox_form_preview/form_widgets/dropdown.dart';
 import 'package:veridox_form_preview/form_widgets/form_text_input.dart';
+import 'package:veridox_form_preview/form_widgets/table.dart';
 import 'package:veridox_form_preview/form_widgets/toggle_button.dart';
 
 import '../form_widgets/text.dart';
@@ -33,98 +34,216 @@ class _FormPageState extends State<FormPage> {
   }
 
   void _initializePageData() {
-    _pageData = widget.singlePageData['fields'];
-    print(_pageData);
+    _pageData = widget.singlePageData['fields'] ?? [];
+    print('page data --> $_pageData');
+  }
+
+  int _getLength() {
+    List<dynamic> wid = _pageData as List<dynamic>;
+    return wid.length;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(_pageData.toString()),
+      ),
       body: Form(
         key: _formKey,
-        child: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            margin: const EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextTitle(
-                  widgetData: {
-                    'label': 'Payout Verification Form',
-                    'is_heading': true,
-                    'id': 0,
-                    "widget": "text",
-                  },
-                ),
-                TextTitle(
-                  widgetData: {
-                    'label': 'Basic Details',
-                    'is_heading': false,
-                    'id': 0,
-                    "widget": "text",
-                  },
-                ),
-                TextTitle(
-                  widgetData: {
-                    'label': 'Policy Number*-: 15671049',
-                    'is_heading': false,
-                    'id': 0,
-                    "widget": "text",
-                  },
-                ),
-                FormTextInput(
-                  widgetData: {
-                    "label": "Existing Address Details*",
-                    "widget": "text_input",
-                    "required": true,
-                    "multi_line": false,
-                    "type": "number",
-                    "length": 10,
-                    "id": 1,
-                  },
-                ),
-                FormTextInput(
-                  widgetData: {
-                    "label": "State",
-                    "widget": "text_input",
-                    "required": true,
-                    "multi_line": true,
-                    "length": 300,
-                    "id": 1,
-                  },
-                ),
-                ToggleButton(
-                  widgetData: {
-                    "label": "Whether you meet the person ",
-                    "widget": "toggle_button",
-                    "required": true,
-                    "id": 4,
-                  },
-                ),
-                DropdownMenu(
-                  widgetJson: {
-                    "label": "Select itmes",
-                    "widget": "dropdown",
-                    "options": ['option 1', 'option 2', 'option 3', 'option 4'],
-                    "required": true,
-                    "id": 4,
-                  },
-                ),
-                DateTimePicker(widgetjson: {
+        child: Container(
+          padding: const EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: _getLength(),
+            itemBuilder: (context, index) {
+              var field = widget.singlePageData['fields'];
+              print('fields --> $field');
+              if (field[index] != null && field[index]['widget'] == 'text') {
+                print('text');
+                return TextTitle(
+                  widgetData: field[index],
+                );
+              } else if (field[index] != null &&
+                  field[index]['widget'] == 'text-input') {
+                print('text_input');
+
+                return FormTextInput(
+                  widgetData: field[index],
+                );
+              } else if (field[index] != null &&
+                  field[index]['widget'] == 'toggle_button') {
+                print('toggle');
+                return ToggleButton(
+                  widgetData: field[index],
+                );
+              } else if (field[index] != null &&
+                  field[index]['widget'] == 'dropdown') {
+                print('dropdown');
+
+                return DropdownMenu(
+                  widgetJson: field[index],
+                );
+              } else if (field[index] != null &&
+                  field[index]['widget'] == 'date_time') {
+                print('date time');
+
+                return DateTimePicker(
+                  widgetjson: field[index],
+                );
+              } else {
+                return const Text('Start make some form');
+              }
+            },
+          ),
+        ),
+      ),
+      // body: Text('no error form page'),
+    );
+  }
+}
+
+/*
+TextTitle(
+                widgetData: {
+                  'label': 'Basic Details',
+                  'is_heading': true,
+                  'id': 0,
+                  "widget": "text",
+                },
+              ),
+              TextTitle(
+                widgetData: {
+                  'label': 'Policy Number*-: 15671049',
+                  'is_heading': false,
+                  'id': 0,
+                  "widget": "text",
+                },
+              ),
+              FormTextInput(
+                widgetData: {
+                  "label": "Existing Address Details*",
+                  "widget": "text_input",
+                  "required": true,
+                  "multi_line": false,
+                  "type": "number",
+                  "length": 10,
+                  "id": 1,
+                },
+              ),
+              FormTextInput(
+                widgetData: {
+                  "label": "State",
+                  "widget": "text_input",
+                  "required": true,
+                  "multi_line": true,
+                  "type": "text",
+                  "length": 300,
+                  "id": 1,
+                },
+              ),
+              ToggleButton(
+                widgetData: {
+                  "label": "Whether you meet the person ",
+                  "widget": "toggle_button",
+                  "required": true,
+                  "id": 4,
+                },
+              ),
+              DropdownMenu(
+                widgetJson: {
+                  "label": "Select itmes",
+                  "widget": "dropdown",
+                  "options": ['option 1', 'option 2', 'option 3', 'option 4'],
+                  "required": true,
+                  "id": 4,
+                },
+              ),
+              DateTimePicker(
+                widgetjson: {
                   "label": "Date when you reached the house",
                   "widget": "date_time",
                   "required": true,
                   "id": 4,
-                }),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+                },
+              ),
+              FormTableInput(
+                widgetJson: {
+                  "widget": "table_input",
+                  "label": "Profile of the life assured*",
+                  "row_labels": [
+                    "Name",
+                    "Date of Birth",
+                    "Age",
+                    "Marital Status",
+                    "Occupation",
+                    "Annual Income",
+                    "Education",
+                    "Other life/health insurance",
+                    "Address",
+                    "Nominee Relationship"
+                  ],
+                  "column_labels": [
+                    "As per investigation",
+                    "Mismatch noted (Yes/No)",
+                    "Evidence procured (Yes/No)"
+                  ],
+                  "value": [
+                    {
+                      "As per investigation": "",
+                      "Mismatch noted (Yes/No)": "",
+                      "Evidence procured (Yes/No)": ""
+                    },
+                    {
+                      "As per investigation": "",
+                      "Mismatch noted (Yes/No)": "",
+                      "Evidence procured (Yes/No)": ""
+                    },
+                    {
+                      "As per investigation": "",
+                      "Mismatch noted (Yes/No)": "",
+                      "Evidence procured (Yes/No)": ""
+                    },
+                    {
+                      "As per investigation": "",
+                      "Mismatch noted (Yes/No)": "",
+                      "Evidence procured (Yes/No)": ""
+                    },
+                    {
+                      "As per investigation": "",
+                      "Mismatch noted (Yes/No)": "",
+                      "Evidence procured (Yes/No)": ""
+                    },
+                    {
+                      "As per investigation": "",
+                      "Mismatch noted (Yes/No)": "",
+                      "Evidence procured (Yes/No)": ""
+                    },
+                    {
+                      "As per investigation": "",
+                      "Mismatch noted (Yes/No)": "",
+                      "Evidence procured (Yes/No)": ""
+                    },
+                    {
+                      "As per investigation": "",
+                      "Mismatch noted (Yes/No)": "",
+                      "Evidence procured (Yes/No)": ""
+                    },
+                    {
+                      "As per investigation": "",
+                      "Mismatch noted (Yes/No)": "",
+                      "Evidence procured (Yes/No)": ""
+                    },
+                    {
+                      "As per investigation": "",
+                      "Mismatch noted (Yes/No)": "",
+                      "Evidence procured (Yes/No)": ""
+                    }
+                  ]
+                },
+              )
+* */
 
 /*
 TextTitle(

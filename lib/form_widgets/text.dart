@@ -18,7 +18,7 @@ class _TextTitleState extends State<TextTitle> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _isHeading = widget.widgetData['is_heading'];
+    _isHeading = widget.widgetData['is_heading'] ?? false;
   }
 
   @override

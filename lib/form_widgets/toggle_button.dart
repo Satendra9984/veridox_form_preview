@@ -23,7 +23,6 @@ class _ToggleButtonState extends State<ToggleButton> {
   @override
   void initState() {
     super.initState();
-    status = widget.widgetData['value'] ?? false;
   }
 
   @override
