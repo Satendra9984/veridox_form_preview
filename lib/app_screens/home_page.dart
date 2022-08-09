@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:veridox_form_preview/app_screens/form_page.dart';
+import 'package:veridox_form_preview/app_screens/initial_form_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({
@@ -63,6 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _totalPages = pageData.length;
     _currentIndex = 0;
     // _pageController.jumpToPage(0);
+    // _pageController.position.
     debugPrint(
       'data in _getFormPages length --> ${pageData.length.toString()}',
     );
@@ -107,12 +109,14 @@ class _MyHomePageState extends State<MyHomePage> {
             debugPrint(data.toString());
             // debugPrint('data type for page --> ${data.runtimeType}');
 
-            return PageView(
-              scrollDirection: Axis.horizontal,
-              controller: _pageController,
-              children: _getFormPages(data),
-              onPageChanged: (currentPage) {},
-            );
+            return InitialFormPageView(pagesData: data);
+
+            //   PageView(
+            //   scrollDirection: Axis.horizontal,
+            //   controller: _pageController,
+            //   children: _getFormPages(data),
+            //   onPageChanged: (currentPage) {},
+            // );
           } else if (snapshot == null) {
             debugPrint('fine 75');
             return const Center(
@@ -126,34 +130,34 @@ class _MyHomePageState extends State<MyHomePage> {
           }
         },
       ),
-      bottomNavigationBar: Row(
-        children: [
-          IconButton(
-            onPressed: () {
-              if (_currentIndex > 0) {
-                _currentIndex -= 1;
-                _pageController.jumpToPage(_currentIndex);
-              }
-            },
-            icon: Icon(
-              Icons.arrow_back,
-              color: _getColor(),
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              if (_currentIndex < _totalPages - 1) {
-                _currentIndex += 1;
-                _pageController.jumpToPage(_currentIndex);
-              }
-            },
-            icon: Icon(
-              Icons.arrow_forward,
-              color: _getRightArrowColor(),
-            ),
-          ),
-        ],
-      ),
+      // bottomNavigationBar: Row(
+      //   children: [
+      //     IconButton(
+      //       onPressed: () {
+      //         if (_currentIndex > 0) {
+      //           _currentIndex -= 1;
+      //           _pageController.jumpToPage(_currentIndex);
+      //         }
+      //       },
+      //       icon: Icon(
+      //         Icons.arrow_back,
+      //         color: _getColor(),
+      //       ),
+      //     ),
+      //     IconButton(
+      //       onPressed: () {
+      //         if (_currentIndex < _totalPages - 1) {
+      //           _currentIndex += 1;
+      //           _pageController.jumpToPage(_currentIndex);
+      //         }
+      //       },
+      //       icon: Icon(
+      //         Icons.arrow_forward,
+      //         color: _getRightArrowColor(),
+      //       ),
+      //     ),
+      //   ],
+      // ),
     );
   }
 }
