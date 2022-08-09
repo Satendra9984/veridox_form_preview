@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:veridox_form_preview/form_widgets/date_time.dart';
 import 'package:veridox_form_preview/form_widgets/dropdown.dart';
 import 'package:veridox_form_preview/form_widgets/form_text_input.dart';
-import 'package:veridox_form_preview/form_widgets/table.dart';
 import 'package:veridox_form_preview/form_widgets/toggle_button.dart';
 
 import '../form_widgets/text.dart';
@@ -58,7 +57,7 @@ class _FormPageState extends State<FormPage> {
             shrinkWrap: true,
             itemCount: _getLength(),
             itemBuilder: (context, index) {
-              var field = widget.singlePageData['fields'];
+              var field = _pageData;
               print('fields --> $field');
               if (field[index] != null && field[index]['widget'] == 'text') {
                 print('text');
