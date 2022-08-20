@@ -1,12 +1,19 @@
+import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:veridox_form_preview/app_screens/database_controller.dart';
+import 'form_widgets/image_input.dart';
 
-import 'app_screens/home_page.dart';
+List<CameraDescription> cameras = [];
 
 void main() async {
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   WidgetsFlutterBinding.ensureInitialized();
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
+    cameras = await availableCameras();
+  } on CameraException catch (e) {
+    print('Error in fetching the cameras: $e');
+  }
   const firebaseConfig = {
     'apiKey': "AIzaSyA0KGfaOxma0G8tbmB_PEydfbvC7g5eOr0",
     'authDomain': "veridox-68b89.firebaseapp.com",
@@ -32,6 +39,8 @@ void main() async {
       measurementId: firebaseConfig['measurementId']!,
     ),
   );
+  // static List<CameraDescription> cameras = await availableCameras();
+  // static final firstCamera = cameras.first;
   runApp(const MyApp());
 }
 
@@ -46,8 +55,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      // home: MyHomePage(),
       // home: DataController(),
+      home: const ImageInput(
+        widgetJson: {'label': 'capture location images'},
+      ),
     );
   }
 }

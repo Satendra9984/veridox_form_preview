@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-
 import 'form_page.dart';
 
 class InitialFormPageView extends StatefulWidget {
@@ -17,8 +16,6 @@ class InitialFormPageView extends StatefulWidget {
 
 class _InitialFormPageViewState extends State<InitialFormPageView> {
   late final PageController _pageController;
-  int _currentIndex = -1;
-  late int _totalPages = -1;
   @override
   void initState() {
     super.initState();
@@ -43,22 +40,11 @@ class _InitialFormPageViewState extends State<InitialFormPageView> {
     if (pageData == null) {
       return screen;
     }
-    _totalPages = pageData.length;
-    _currentIndex = 0;
-    // _pageController.jumpToPage(0);
-    // _pageController.position.
-    debugPrint(
-      'data in _getFormPages length --> ${pageData.length.toString()}',
-    );
     for (int i = 0; i < pageData.length; i++) {
       screen.add(
         FormPage(singlePageData: pageData[i]),
       );
     }
-    if (kDebugMode) {
-      print('line 71 --> home page');
-    }
-
     return screen;
   }
 

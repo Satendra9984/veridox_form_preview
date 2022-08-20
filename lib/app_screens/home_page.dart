@@ -65,16 +65,16 @@ class _MyHomePageState extends State<MyHomePage> {
     _currentIndex = 0;
     // _pageController.jumpToPage(0);
     // _pageController.position.
-    debugPrint(
-      'data in _getFormPages length --> ${pageData.length.toString()}',
-    );
+    // debugPrint(
+    // 'data in _getFormPages length --> ${pageData.length.toString()}',
+    // );
     for (int i = 0; i < pageData.length; i++) {
       screen.add(
         FormPage(singlePageData: pageData[i]),
       );
     }
     if (kDebugMode) {
-      print('line 71 --> home page');
+      // print('line 71 --> home page');
     }
 
     return screen;
@@ -86,6 +86,8 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: const Text('Title'),
       ),
+
+      /// realtime form data will be come here
       body: StreamBuilder(
         stream: FirebaseDatabase.instance.ref().onValue,
         builder: (context, AsyncSnapshot<DatabaseEvent> form) {
@@ -106,24 +108,17 @@ class _MyHomePageState extends State<MyHomePage> {
             final data =
                 Map<String, dynamic>.from(snapshot as Map<dynamic, dynamic>);
 
-            debugPrint(data.toString());
+            // debugPrint('new data --> ${data.toString()}');
             // debugPrint('data type for page --> ${data.runtimeType}');
 
             return InitialFormPageView(pagesData: data);
-
-            //   PageView(
-            //   scrollDirection: Axis.horizontal,
-            //   controller: _pageController,
-            //   children: _getFormPages(data),
-            //   onPageChanged: (currentPage) {},
-            // );
           } else if (snapshot == null) {
-            debugPrint('fine 75');
+            // debugPrint('fine 75');
             return const Center(
               child: Text('Form will be displayed here'),
             );
           } else {
-            debugPrint('fine 80');
+            // debugPrint('fine 80');
             return const Center(
               child: Text('Data not loaded'),
             );

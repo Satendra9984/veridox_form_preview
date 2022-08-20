@@ -1,10 +1,10 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:veridox_form_preview/app_screens/file_upload.dart';
 import 'package:veridox_form_preview/form_widgets/date_time.dart';
 import 'package:veridox_form_preview/form_widgets/dropdown.dart';
 import 'package:veridox_form_preview/form_widgets/form_text_input.dart';
+import 'package:veridox_form_preview/form_widgets/image_input.dart';
 import 'package:veridox_form_preview/form_widgets/toggle_button.dart';
-
 import '../form_widgets/text.dart';
 
 class FormPage extends StatefulWidget {
@@ -25,16 +25,16 @@ class _FormPageState extends State<FormPage> {
   @override
   void initState() {
     super.initState();
-    if (kDebugMode) {
-      print('list in form page --> ${widget.singlePageData['id'].toString()}');
-    }
-
+    // print('form page reinitialized');
+    // if (kDebugMode) {
+    // print('list in form page --> ${widget.singlePageData['id'].toString()}');
+    // }
     _initializePageData();
   }
 
   void _initializePageData() {
     _pageData = widget.singlePageData['fields'] ?? [];
-    print('page data --> $_pageData');
+    // print('page data --> $_pageData');
   }
 
   int _getLength() {
@@ -58,38 +58,50 @@ class _FormPageState extends State<FormPage> {
             itemCount: _getLength(),
             itemBuilder: (context, index) {
               var field = _pageData;
-              print('fields --> $field');
+              // print('fields --> $field');
               if (field[index] != null && field[index]['widget'] == 'text') {
-                print('text');
+                // print('text');
                 return TextTitle(
                   widgetData: field[index],
                 );
               } else if (field[index] != null &&
                   field[index]['widget'] == 'text-input') {
-                print('text_input');
+                // print('text_input');
 
                 return FormTextInput(
                   widgetData: field[index],
                 );
               } else if (field[index] != null &&
-                  field[index]['widget'] == 'toggle_button') {
-                print('toggle');
+                  field[index]['widget'] == 'toggle-button') {
+                // print('toggle');
                 return ToggleButton(
                   widgetData: field[index],
                 );
               } else if (field[index] != null &&
                   field[index]['widget'] == 'dropdown') {
-                print('dropdown');
+                // print('dropdown');
 
                 return DropdownMenu(
                   widgetJson: field[index],
                 );
               } else if (field[index] != null &&
-                  field[index]['widget'] == 'date_time') {
-                print('date time');
+                  field[index]['widget'] == 'date-time') {
+                // print('date time');
 
                 return DateTimePicker(
                   widgetjson: field[index],
+                );
+              } else if (field[index] != null &&
+                  field[index]['widget'] == 'file') {
+                return FileUploadButton(
+                  text: 'Upload location image',
+                  location: 'location',
+                  cntrl: TextEditingController(),
+                );
+              } else if (field[index] != null &&
+                  field[index]['widget'] == 'image-input') {
+                return ImageInput(
+                  widgetJson: field[index]['widget'],
                 );
               } else {
                 return const Text('Start make some form');
