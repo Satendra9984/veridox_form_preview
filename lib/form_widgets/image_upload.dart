@@ -62,12 +62,11 @@ class _ImagePickerImageInputState extends State<ImagePickerImageInput> {
       await _controller!.setVolume(0.0);
     }
     if (isVideo) {
+
       final XFile? file = await _picker.pickVideo(
           source: source, maxDuration: const Duration(seconds: 10));
       await _playVideo(file);
     } else if (isMultiImage) {
-      // await _displayPickImageDialog(context!,
-      //     (double? maxWidth, double? maxHeight, int? quality) async {
       try {
         final List<XFile>? pickedFileList = await _picker.pickMultiImage(
           maxWidth: null,
@@ -90,10 +89,7 @@ class _ImagePickerImageInputState extends State<ImagePickerImageInput> {
           _pickImageError = e;
         });
       }
-      // });
     } else {
-      // await _displayPickImageDialog(context!,
-      //     (double? maxWidth, double? maxHeight, int? quality) async {
       try {
         final XFile? pickedFile = await _picker.pickImage(
           source: source,
@@ -101,7 +97,6 @@ class _ImagePickerImageInputState extends State<ImagePickerImageInput> {
           maxHeight: null,
           imageQuality: 50,
         );
-        // image = pickedFile;
 
         if (kDebugMode) {
           print('path.........${pickedFile?.path}');
@@ -113,7 +108,6 @@ class _ImagePickerImageInputState extends State<ImagePickerImageInput> {
           _pickImageError = e;
         });
       }
-      // });
     }
     return image;
   }
@@ -305,25 +299,6 @@ class _ImagePickerImageInputState extends State<ImagePickerImageInput> {
               child: const Icon(Icons.photo_library),
             ),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.only(top: 16.0),
-          //   child: FloatingActionButton(
-          //     onPressed: () async {
-          //       // isVideo = false;
-          //       // // XFile? image =
-          //       // await _onImageButtonPressed(
-          //       //   ImageSource.camera,
-          //       //   context: context,
-          //       // ).then((image) {
-          //       //   debugPrint('image  path line 300 --> ${image?.path}');
-          //       //   justNavigatePop(image);
-          //       // });
-          //     },
-          //     heroTag: 'image2',
-          //     tooltip: 'Take a Photo',
-          //     child: const Icon(Icons.camera_alt),
-          //   ),
-          // ),
         ],
       ),
     );
@@ -336,64 +311,6 @@ class _ImagePickerImageInputState extends State<ImagePickerImageInput> {
       return result;
     }
     return null;
-  }
-
-  Future<void> _displayPickImageDialog(
-      BuildContext context, OnPickImageCallback onPick) async {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Add optional parameters'),
-            content: Column(
-              children: <Widget>[
-                TextField(
-                  controller: maxWidthController,
-                  keyboardType:
-                      const TextInputType.numberWithOptions(decimal: true),
-                  decoration: const InputDecoration(
-                      hintText: 'Enter maxWidth if desired'),
-                ),
-                TextField(
-                  controller: maxHeightController,
-                  keyboardType:
-                      const TextInputType.numberWithOptions(decimal: true),
-                  decoration: const InputDecoration(
-                      hintText: 'Enter maxHeight if desired'),
-                ),
-                TextField(
-                  controller: qualityController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                      hintText: 'Enter quality if desired'),
-                ),
-              ],
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: const Text('CANCEL'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              TextButton(
-                  child: const Text('PICK'),
-                  onPressed: () {
-                    final double? width = maxWidthController.text.isNotEmpty
-                        ? double.parse(maxWidthController.text)
-                        : null;
-                    final double? height = maxHeightController.text.isNotEmpty
-                        ? double.parse(maxHeightController.text)
-                        : null;
-                    final int? quality = qualityController.text.isNotEmpty
-                        ? int.parse(qualityController.text)
-                        : null;
-                    onPick(width, height, quality);
-                    Navigator.of(context).pop();
-                  }),
-            ],
-          );
-        });
   }
 }
 

@@ -6,15 +6,15 @@ import '../services/uploader.dart';
 
 class FileUploadButton extends StatefulWidget {
   final TextEditingController cntrl;
+  final String text;
+  final String location;
+
   const FileUploadButton({
     Key? key,
     required this.text,
     required this.location,
     required this.cntrl,
   }) : super(key: key);
-
-  final String text;
-  final String location;
 
   @override
   State<FileUploadButton> createState() => _FileUploadButtonState();

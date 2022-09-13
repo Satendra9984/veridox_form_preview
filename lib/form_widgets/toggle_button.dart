@@ -5,11 +5,11 @@ import 'package:flutter_switch/flutter_switch.dart';
 import '../app_constants.dart';
 
 class ToggleButton extends StatefulWidget {
-  final Map<String, dynamic> widgetData;
+  final Map<String, dynamic> widgetJson;
   // final Function(dynamic value) onChange;
   const ToggleButton({
     Key? key,
-    required this.widgetData,
+    required this.widgetJson,
     // required this.onChange,
   }) : super(key: key);
 
@@ -25,53 +25,58 @@ class _ToggleButtonState extends State<ToggleButton> {
     super.initState();
   }
 
+  String _getLabel() {
+    String label = widget.widgetJson['label'];
+
+    if (widget.widgetJson.containsKey('required') &&
+        widget.widgetJson['required'] == true) {
+      label += '*';
+      debugPrint('$label \n\n');
+    }
+    return label;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(5),
-          decoration: containerElevationDecoration,
-          child: Row(
-            children: [
-              Expanded(
-                flex: 8,
-                child: Text(
-                  widget.widgetData['label'],
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    // color: Colors.black,
-                  ),
-                ),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+      margin: const EdgeInsets.only(bottom: 15),
+      decoration: containerElevationDecoration,
+      child: Row(
+        children: [
+          Expanded(
+            flex: 8,
+            child: Text(
+              _getLabel(),
+              style: const TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w500,
+                // color: Colors.black,
               ),
-              const SizedBox(
-                width: 15,
-              ),
-              Expanded(
-                flex: 2,
-                child: FlutterSwitch(
-                  width: 55.0,
-                  height: 30.0,
-                  toggleSize: 25.0,
-                  value: status,
-                  onToggle: (val) {
-                    setState(() {
-                      status = val;
-                    });
-                    // widget.onChange(val);
-                  },
-                  activeColor: CupertinoColors.systemGreen,
-                  inactiveColor: CupertinoColors.systemRed,
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
-        const SizedBox(
-          height: 30,
-        ),
-      ],
+          const SizedBox(
+            width: 15,
+          ),
+          Expanded(
+            flex: 2,
+            child: FlutterSwitch(
+              width: 45.0,
+              height: 25.0,
+              toggleSize: 20.0,
+              value: status,
+              onToggle: (val) {
+                setState(() {
+                  status = val;
+                });
+                // widget.onChange(val);
+              },
+              activeColor: CupertinoColors.systemGreen,
+              inactiveColor: CupertinoColors.systemRed,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

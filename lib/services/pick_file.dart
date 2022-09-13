@@ -1,15 +1,32 @@
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 
 class PickFile {
   static Future<String?> pickFileAndGetPath(
       {List<String>? fileExtensions}) async {
-    FilePickerResult? file =
-        await FilePicker.platform.pickFiles(allowedExtensions: fileExtensions);
+    FilePickerResult? file = await FilePicker.platform.pickFiles(
+      allowedExtensions: ['pdf'],
+      type: FileType.custom,
+    );
 
     if (file != null) {
-      debugPrint(file.files.single.path);
+      debugPrint('file form picker --> ${file.files.first.path}');
       return file.files.single.path;
+    }
+    return null;
+  }
+
+  static Future<PlatformFile?> pickAndGetFileAsBytes(
+      {List<String>? fileExtensions}) async {
+    FilePickerResult? file = await FilePicker.platform.pickFiles(
+      allowedExtensions: ['pdf'],
+      type: FileType.custom,
+    );
+
+    if (file != null) {
+      return file.files.first;
     }
     return null;
   }

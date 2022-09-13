@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'form_widgets/image_input.dart';
+import 'app_screens/home_page.dart';
 
 List<CameraDescription> cameras = [];
 
@@ -55,11 +55,29 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: MyHomePage(),
+      home: const MyHomePage(),
+      // home: FileUploadButton(
+      //   text: '',
+      //   location: '',
+      //   cntrl: TextEditingController(),
+      // ),
+      // home: FormFileInput(
+      //   widgetJson: {
+      //     "extensions": [
+      //       {"id": 0, "value": ".pdf"},
+      //       {"id": 1, "value": ".jpg"}
+      //     ],
+      //     "id": 0,
+      //     "label": "file input",
+      //     "widget": "file"
+      //   },
+      // ),
       // home: DataController(),
-      home: const ImageInput(
-        widgetJson: {'label': 'capture location images'},
-      ),
+      // home: Scaffold(
+      //   body: const ImageInput(
+      //     widgetJson: {'label': 'capture location images'},
+      //   ),
+      // ),
     );
   }
 }

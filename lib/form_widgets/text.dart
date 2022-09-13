@@ -16,7 +16,6 @@ class _TextTitleState extends State<TextTitle> {
   bool _isHeading = false;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _isHeading = widget.widgetData['is_heading'] ?? false;
   }
@@ -26,8 +25,8 @@ class _TextTitleState extends State<TextTitle> {
     return Container(
       width: double.infinity,
       alignment: Alignment.topLeft,
-      padding: const EdgeInsets.all(10),
-      margin: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.all(15),
+      margin: const EdgeInsets.only(bottom: 15),
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.grey.shade300,
@@ -37,8 +36,8 @@ class _TextTitleState extends State<TextTitle> {
         boxShadow: [
           BoxShadow(
             color: Colors.grey.shade300,
-            offset: const Offset(0.0, 2.5), //(x,y)
-            blurRadius: 3.5,
+            offset: const Offset(0.0, 0.0), //(x,y)
+            blurRadius: 0.5,
           ),
         ],
       ),
@@ -59,8 +58,8 @@ class _TextTitleState extends State<TextTitle> {
               : Text(
                   widget.widgetData['label'],
                   style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
           // const SizedBox(

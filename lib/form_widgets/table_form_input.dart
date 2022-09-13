@@ -1,19 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:veridox_form_preview/app_constants.dart';
 
-class FormTextInput extends StatefulWidget {
+class FormTableTextInput extends StatefulWidget {
   final Map<String, dynamic> widgetData;
-  const FormTextInput({
+  const FormTableTextInput({
     Key? key,
     required this.widgetData,
   }) : super(key: key);
 
   @override
-  State<FormTextInput> createState() => _FormTextInputState();
+  State<FormTableTextInput> createState() => _FormTableTextInputState();
 }
 
-class _FormTextInputState extends State<FormTextInput> {
+class _FormTableTextInputState extends State<FormTableTextInput> {
   late final TextEditingController _textEditingController;
   bool _isRequired = false;
 
@@ -54,22 +53,22 @@ class _FormTextInputState extends State<FormTextInput> {
     return Container(
       padding: const EdgeInsets.all(15),
       margin: const EdgeInsets.only(bottom: 15),
-      decoration: containerElevationDecoration,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(
-            height: 10,
-          ),
           Text(
             _getLabel(),
             style: const TextStyle(
               fontSize: 16,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w400,
             ),
           ),
           const SizedBox(
-            height: 25,
+            height: 10,
           ),
           TextFormField(
             controller: _textEditingController,
@@ -109,11 +108,6 @@ class _FormTextInputState extends State<FormTextInput> {
             maxLength: widget.widgetData['length'],
             // keyboardType: _getKeyboardType(),
             decoration: const InputDecoration(
-              //   border: InputBorder.none,
-              //   focusedBorder: InputBorder.none,
-              //   enabledBorder: InputBorder.none,
-              //   errorBorder: InputBorder.none,
-              //   disabledBorder: InputBorder.none,
               hintText: 'Your Answer',
               hintStyle: TextStyle(
                 fontSize: 14,
